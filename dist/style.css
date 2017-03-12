@@ -1,0 +1,25 @@
+html {
+  font-family: 'Arimo', sans-serif;
+}
+
+body {
+  /*background-image: url('background.jpg');*/
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.landing {
+  position: relative;
+}
+
+.landing-name {
+  font-size: 100px;
+  /*color: white;*/
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
