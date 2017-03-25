@@ -13,7 +13,6 @@ app.get('/helloworld', function (req, res) {
   const data = [1,2,3,4,5,6,7,8,9];
 
   py.stdout.on('data', (data) => {
-    console.log('data', data);
     result = data.toString();
     console.log('result', result);
   });
