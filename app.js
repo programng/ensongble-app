@@ -14,7 +14,7 @@ app.get('/helloworld', function (req, res) {
 
   py.stdout.on('data', (data) => {
     result = data.toString();
-    console.log('result', result);
+    console.log('node file result', result);
   });
   py.stdout.on('end', () => {
     console.log('end python script');

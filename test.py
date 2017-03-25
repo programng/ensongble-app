@@ -7,12 +7,10 @@ def read_in():
     return json.loads(lines[0])
 
 def main():
-    print 'hi'
     lines = read_in()
     np_lines = np.array(lines)
     lines_sum = np.sum(np_lines)
     print lines_sum
 
 if __name__ == '__main__':
-    print 'meow'
     main()
