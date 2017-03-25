@@ -6,7 +6,7 @@ const port = process.env.PORT || 8080;;
 
 app.use(express.static(__dirname + "/dist/"));
 
-app.get('/helloworld', function (req, res) {
+app.post('/helloworld', (req, res) => {
   const py = spawn('python', ['test.py']);
   let result;
 
