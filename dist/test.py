@@ -71,7 +71,7 @@ def main():
     lines = read_in()
 
     first_song_in_array = lines[0]
-
+    print first_song_in_array
     # audio_file = read_in()
     # all_songs_for_movie = [audio_file]
 
