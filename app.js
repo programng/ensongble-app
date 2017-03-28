@@ -30,7 +30,7 @@ app.post('/helloworld2', upload.fields([{'name': 'file'}]), function (req, res) 
   const data = [tmpobj.name];
 
   py.stdout.on('data', (data) => {
-    console.log('data2', data);
+    console.log('data22', data);
     result = data.toString();
     console.log('result2', result);
   });
