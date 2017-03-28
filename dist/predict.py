@@ -67,7 +67,6 @@ def read_in():
     return json.loads(lines[0])
 
 def main():
-    print 'he'
     lines = read_in()
 
     first_song_in_array = lines[0]
@@ -86,12 +85,8 @@ def main():
     predictions = clf.predict(X)
 
     print predictions
-    print predictions
-    print 'hi'
-    print predictions
 
 if __name__ == '__main__':
-    print 'ha'
     main()
 
 
