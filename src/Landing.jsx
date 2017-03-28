@@ -11,7 +11,7 @@ function handleFiles(e) {
   console.log('file1', files[0]);
   console.log('file2', files[1]);
   console.log('data', data);
-  axios.post('/helloworld', data)
+  axios.post('/helloworld2', data)
   .then((response) => {
     console.log('response', response);
   })

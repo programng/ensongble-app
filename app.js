@@ -17,6 +17,25 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
 
+app.post('/helloworld2', function (req, res) {
+  const py = spawn('python', [path.join(__dirname, 'dist', 'test2.py')]);
+  let result;
+
+  const data = [1,2,3,4,5,6,7,8,9];
+
+  py.stdout.on('data', (data) => {
+    console.log('data2', data);
+    result = data.toString();
+    console.log('result2', result);
+  });
+  py.stdout.on('end', () => {
+    console.log('end2 python script');
+    res.send(result)
+  });
+  py.stdin.write(JSON.stringify(data));
+  py.stdin.end();
+});
+
 app.post('/helloworld', upload.fields([{'name': 'file'}]), (req, res) => {
   // console.log('req', req.files);
   // console.log('req file', req.files.file[0]);
