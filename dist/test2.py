@@ -1,11 +1,6 @@
-import os
 import sys
 import json
-import pandas as pd
 import numpy as np
-import librosa
-from sklearn.externals import joblib
-from functools import partial
 
 def read_in():
     lines = sys.stdin.readlines()
