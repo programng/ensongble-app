@@ -27,7 +27,7 @@ app.post('/helloworld', upload.fields([{'name': 'file'}]), (req, res) => {
   fs.writeFileSync(tmpobj.name, buffer);
   // fs.writeFile('sample.wav', buffer, function(err) {});
   console.log('path:', path.join(__dirname, 'dist', 'predict.py'))
-  const py = spawn('python', [path.join(__dirname, 'dist', 'test.py')]);
+  const py = spawn('python', [path.join(__dirname, 'dist', 'predict.py')]);
   let result;
 
   py.stdout.on('data', (data) => {
