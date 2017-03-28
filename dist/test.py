@@ -7,7 +7,6 @@ from sklearn.externals import joblib
 from functools import partial
 
 import librosa
-import numpy as np
 
 def get_features(all_songs_for_movie, movie_name='unknown'):
     all_movie_names = [movie_name] * len(all_songs_for_movie)
