@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
 
-app.post('/helloworld2', function (req, res) {
+app.post('/helloworld2', upload.fields([{'name': 'file'}]), function (req, res) {
   const py = spawn('python', [path.join(__dirname, 'dist', 'test2.py')]);
   let result;
 
