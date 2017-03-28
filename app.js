@@ -23,7 +23,7 @@ app.post('/helloworld', upload.fields([{'name': 'file'}]), (req, res) => {
   console.log('req buffer', req.files.file[0].buffer);
   const buffer = req.files.file[0].buffer;
   const tmpobj = tmp.fileSync({postfix: '.wav'});
-  console.log('tmpobj', tmpobj);
+  console.log('tmpobj name:', tmpobj.name);
   fs.writeFileSync(tmpobj.name, buffer);
   // fs.writeFile('sample.wav', buffer, function(err) {});
   console.log('path:', path.join(__dirname, 'dist', 'test.py'))

@@ -68,10 +68,11 @@ def read_in():
     return json.loads(lines[0])
 
 def main():
+    print 'he'
     lines = read_in()
 
     first_song_in_array = lines[0]
-    print first_song_in_array
+    # print first_song_in_array
     # audio_file = read_in()
     # all_songs_for_movie = [audio_file]
 
@@ -85,10 +86,13 @@ def main():
     clf = joblib.load(final_model_path)
     predictions = clf.predict(X)
 
-    print(predictions)
+    print predictions
+    print predictions
+    print 'hi'
+    print predictions
 
 if __name__ == '__main__':
-
+    print 'ha'
     main()
 
 
