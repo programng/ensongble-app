@@ -26,7 +26,8 @@ app.post('/helloworld2', upload.fields([{'name': 'file'}]), function (req, res) 
 
   fs.writeFileSync(tmpobj.name, buffer);
 
-  const data = [1,2,3,4,5,6,7,8,9];
+  // const data = [1,2,3,4,5,6,7,8,9];
+  const data = [tmpobj.name];
 
   py.stdout.on('data', (data) => {
     console.log('data2', data);

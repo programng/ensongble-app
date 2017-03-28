@@ -8,9 +8,7 @@ def read_in():
 
 def main():
     lines = read_in()
-    np_lines = np.array(lines)
-    lines_sum = np.sum(np_lines)
-    print lines_sum
+    print lines[0]
 
 if __name__ == '__main__':
     main()
