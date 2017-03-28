@@ -21,6 +21,11 @@ app.post('/helloworld2', upload.fields([{'name': 'file'}]), function (req, res) 
   const py = spawn('python', [path.join(__dirname, 'dist', 'test2.py')]);
   let result;
 
+  const buffer = req.files.file[0].buffer;
+  const tmpobj = tmp.fileSync({postfix: '.wav'});
+
+  fs.writeFileSync(tmpobj.name, buffer);
+
   const data = [1,2,3,4,5,6,7,8,9];
 
   py.stdout.on('data', (data) => {
