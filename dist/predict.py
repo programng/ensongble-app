@@ -69,33 +69,15 @@ def read_in():
 def main():
     lines = read_in()
 
-    first_song_in_array = lines[0]
-    # print first_song_in_array
-    # audio_file = read_in()
-    # all_songs_for_movie = [audio_file]
+    all_songs_for_movie = lines
 
-    all_songs_for_movie = [first_song_in_array]
-
-    # print('1')
-    # print('working')
     X = get_features(all_songs_for_movie)
 
     final_model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'final_model.pkl')
     clf = joblib.load(final_model_path)
     predictions = clf.predict(X)
 
-    print predictions
+    print list(predictions)
 
 if __name__ == '__main__':
     main()
-
-
-# def read_in():
-#     lines = sys.stdin.readlines()
-#     return json.loads(lines[0])
-
-# def main():
-#     lines = read_in()
-#     np_lines = np.array(lines)
-#     lines_sum = np.sum(np_lines)
-#     print lines_sum
