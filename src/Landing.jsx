@@ -38,7 +38,8 @@ class Landing extends React.Component {
     return (
       <div className="landing">
         <Link to="/about">About {d3.version}</Link>
-        <h1 className="landing-name">app</h1>
+        <h1 className="landing-name">ENSONGBLE</h1>
+        <h2 className="landing-sub-name">by Jonathan Ng</h2>
         <input onChange={this.handleFiles} type="file" id="input" multiple />
         {Array.prototype.map.call(this.state.files,
           (file, i) => <AudioItem
