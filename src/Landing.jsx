@@ -41,7 +41,9 @@ class Landing extends React.Component {
         {/* <Link to="/about">About {d3.version}</Link> */}
         <div className="landing-heading">
           <h1 className="landing-name">ENSONGBLE</h1>
-          <h2 className="landing-sub-name">by Jonathan Ng</h2>
+          <h2 className="landing-sub-name">
+            made with <span className="heart">&#9829;</span> by Jonathan Ng
+          </h2>
         </div>
         <input onChange={this.handleFiles} type="file" id="input" multiple />
         {Array.prototype.map.call(this.state.files,
