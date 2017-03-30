@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import * as d3 from 'd3';
+// import { Link } from 'react-router-dom';
+// import * as d3 from 'd3';
 import AudioItem from './AudioItem';
 
 
@@ -37,9 +37,11 @@ class Landing extends React.Component {
   render() {
     return (
       <div className="landing">
-        <Link to="/about">About {d3.version}</Link>
-        <h1 className="landing-name">ENSONGBLE</h1>
-        <h2 className="landing-sub-name">by Jonathan Ng</h2>
+        {/* <Link to="/about">About {d3.version}</Link> */}
+        <div className="landing-heading">
+          <h1 className="landing-name">EN-SONG-BLE</h1>
+          <h2 className="landing-sub-name">by Jonathan Ng</h2>
+        </div>
         <input onChange={this.handleFiles} type="file" id="input" multiple />
         {Array.prototype.map.call(this.state.files,
           (file, i) => <AudioItem
