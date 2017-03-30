@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
 
-app.post('/helloworld', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'name': 'meow'}, {'name': 'woof'}]), (req, res) => {
+app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'name': 'meow'}, {'name': 'woof'}]), (req, res) => {
   // console.log('req.files.files', req.files.files); // array of file objects, want buffer
   const files = req.files.files;
   let file_names = [];
@@ -34,7 +34,7 @@ app.post('/helloworld', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'n
     const tmpobj = tmp.fileSync({postfix: '.wav'});
     fs.writeFileSync(tmpobj.name, buffer);
     file_names.push(tmpobj.name);
-    console.log(i, ':   ', tmpobj.name)
+    console.log(`${i}: ${tmpobj.name}`);
   }
   // console.log('req file', req.files.files[0]);
   // console.log('req buffer', req.files.files[0].buffer);

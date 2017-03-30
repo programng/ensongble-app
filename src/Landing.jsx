@@ -19,11 +19,12 @@ class Landing extends React.Component {
       files: e.target.files,
     });
     const files = e.target.files;
+    console.log('files:', files);
     const data = new FormData();
     for (let i = 0; i < files.length; i += 1) {
       data.append('files', files[i]);
     }
-    axios.post('/helloworld', data)
+    axios.post('/prediction', data)
     .then((response) => {
       console.log('response', response);
       this.setState({
@@ -39,13 +40,14 @@ class Landing extends React.Component {
       <div className="landing">
         {/* <Link to="/about">About {d3.version}</Link> */}
         <div className="landing-heading">
-          <h1 className="landing-name">EN-SONG-BLE</h1>
+          <h1 className="landing-name">ENSONGBLE</h1>
           <h2 className="landing-sub-name">by Jonathan Ng</h2>
         </div>
         <input onChange={this.handleFiles} type="file" id="input" multiple />
         {Array.prototype.map.call(this.state.files,
           (file, i) => <AudioItem
             key={file.name}
+            name={file.name}
             predictedGenre={this.state.genres[i]}
             src={URL.createObjectURL(file)}
           />)}
