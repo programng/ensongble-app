@@ -25,6 +25,10 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
 
+app.get('/test', (req, res) => {
+  res.send('hi');
+});
+
 app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'name': 'meow'}, {'name': 'woof'}]), (req, res) => {
   // console.log('req.files.files', req.files.files); // array of file objects, want buffer
   const files = req.files.files;
