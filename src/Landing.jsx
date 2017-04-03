@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 // import { Link } from 'react-router-dom';
-import * as d3 from 'd3';
+// import * as d3 from 'd3';
 import AudioItem from './AudioItem';
+import PredictionVis from './PredictionVis';
 
 
 class Landing extends React.Component {
@@ -13,44 +14,6 @@ class Landing extends React.Component {
       genres: [],
     };
     this.handleFiles = this.handleFiles.bind(this);
-  }
-
-  componentDidMount() {
-    console.log('this.d3svg', this.d3svg);
-    // force.on('tick', () => {
-    //   // after force calculation starts, call updateGraph
-    //   // which uses d3 to manipulate the attributes,
-    //   // and React doesn't have to go through lifecycle on each tick
-    //   this.d3Graph.call(updateGraph);
-    // });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('nextProps', nextProps);
-    console.log('nextState', nextState);
-    const rectWidth = 50;
-    const height = 300;
-    const data = [100, 250, 175, 200, 120, 60, 20];
-
-    // const svg = d3.select('svg');
-    const enter = this.d3svg.selectAll('rect')
-      .data(data)
-      .enter().append('rect')
-      .attr('x', (d, i) => (i) * rectWidth)
-      .attr('y', d => height - d)
-      .attr('width', rectWidth)
-      .attr('height', d => d)
-    //      .attr('fill', 'blue')
-      .attr('fill', (d) => {
-        if (d === 250) return 'red';
-        return 'blue';
-      })
-      .attr('stroke', '#fff')
-      .attr('stroke-width', '0px 20px');
-    console.log(enter.nodes());
-    console.log(enter.data());
-
-    return true;
   }
 
   handleFiles(e) {
@@ -95,7 +58,7 @@ class Landing extends React.Component {
               src={URL.createObjectURL(file)}
             />)}
         </div>
-        <svg className="svg-canvas" ref={(input) => { this.d3svg = d3.select(input); }} />
+        <PredictionVis />
       </div>
     );
   }
