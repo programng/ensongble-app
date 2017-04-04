@@ -86,7 +86,8 @@ div.header {
 
 div.header-title {
   margin: 0 40px;
-  flex-grow: 1;
+  flex-basis: 100px;
+  flex-grow: 2;
 }
 
 p.header-title-sub {
@@ -94,12 +95,13 @@ p.header-title-sub {
 }
 
 ul.header-nav-list {
+  flex-basis: 700px;
   flex-grow: 5;
   list-style-type: none;
   padding: 0;
   margin: 0;
   margin-right: 110px;
-  max-width: 500px;
+  /*max-width: 500px;*/
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -109,6 +111,15 @@ ul.header-nav-list {
 
 li.header-nav-list-item {
   /*min-width: 100px;*/
+}
+
+li.github-link {
+  display: flex;
+  align-items: center;
+}
+
+img.github-logo {
+  margin-right: 3px;
 }
 
 /*Landing*/

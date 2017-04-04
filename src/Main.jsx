@@ -11,7 +11,7 @@ function Main() {
     <BrowserRouter>
       <div className="app">
         <Header />
-        <Route path="/" component={Landing} />
+        <Route exact path="/" component={Landing} />
         <Route path="/about" component={About} />
       </div>
     </BrowserRouter>

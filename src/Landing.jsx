@@ -58,7 +58,10 @@ class Landing extends React.Component {
               src={URL.createObjectURL(file)}
             />)}
         </div>
-        <PredictionVis />
+        <PredictionVis
+          fileList={this.state.files}
+          predictedGenres={this.state.genres}
+        />
       </div>
     );
   }
