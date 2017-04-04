@@ -5,33 +5,40 @@ import pandas as pd
 import numpy as np
 from sklearn.externals import joblib
 from functools import partial
+from multiprocessing import Pool
 
 import librosa
+
+pool = Pool()
 
 def get_features(all_songs_for_movie, movie_name='unknown'):
     all_movie_names = [movie_name] * len(all_songs_for_movie)
 
-    loaded_audio_for_movie = map(librosa.load, all_songs_for_movie)
+    loaded_audio_for_movie = pool.map(librosa.load, all_songs_for_movie)
     audio_buffer_array = np.array([loaded_audio[0] for loaded_audio in loaded_audio_for_movie])
     X = audio_buffer_array
     df = pd.DataFrame(data={'movie': all_movie_names})
 
-    spectral_rolloffs = map(librosa.feature.spectral_rolloff, X)
+    spectral_rolloffs = pool.imap(librosa.feature.spectral_rolloff, X)
+    spectral_rolloffs = list(spectral_rolloffs)
     df['spectral_rolloffs_mean'] = [spectral_rolloff.mean() for spectral_rolloff in spectral_rolloffs]
     df['spectral_rolloffs_std'] = [spectral_rolloff.std() for spectral_rolloff in spectral_rolloffs]
 
 
-    spectral_centroids = map(librosa.feature.spectral_centroid, X)
+    spectral_centroids = pool.imap(librosa.feature.spectral_centroid, X)
+    spectral_centroids = list(spectral_centroids)
     df['spectral_centroids_mean'] = [spectral_centroid.mean() for spectral_centroid in spectral_centroids]
     df['spectral_centroids_std'] = [spectral_centroid.std() for spectral_centroid in spectral_centroids]
 
 
-    zero_crossing_rates = map(librosa.feature.zero_crossing_rate, X)
+    zero_crossing_rates = pool.imap(librosa.feature.zero_crossing_rate, X)
+    zero_crossing_rates = list(zero_crossing_rates)
     df['zero_crossing_rates_mean'] = [zero_crossing_rate.mean() for zero_crossing_rate in zero_crossing_rates]
     df['zero_crossing_rates_std'] = [zero_crossing_rate.std() for zero_crossing_rate in zero_crossing_rates]
 
     partial_mfcc = partial(librosa.feature.mfcc, n_mfcc=5)
-    mfccs = map(partial_mfcc, X)
+    mfccs = pool.imap(partial_mfcc, X)
+    mfccs = list(mfccs)
 
     mfcc1s = [mfcc[0] for mfcc in mfccs]
     df['mfcc1_mean'] = [mfcc1.mean() for mfcc1 in mfcc1s]
