@@ -9,7 +9,7 @@ class AudioPlayer extends React.Component {
 
   render() {
     return (
-      <audio id="sound" src={this.props.src} controls />
+      <audio className="audio-player" src={this.props.src} controls />
     );
   }
 }

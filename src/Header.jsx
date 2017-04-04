@@ -7,10 +7,13 @@ function Header() {
       <div className="header-title">
         <Link to="/">
           ENSONGBLE
-          <p className="header-title-sub">
-            made with <span className="heart">&#9829;</span> by Jonathan Ng
-          </p>
         </Link>
+        <p className="header-title-sub">
+          made with <span className="heart">&#9829;</span> by&nbsp;
+          <a href="http://www.programng.com" target="_blank" rel="noopener noreferrer">
+            Jonathan Ng
+          </a>
+        </p>
       </div>
       <ul className="header-nav-list">
         <Link to="/"><li className="header-nav-list-item">Predict Genre</li></Link>

@@ -128,6 +128,7 @@ img.github-logo {
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-top: 15px;
 }
 
 .landing-heading {
@@ -152,16 +153,30 @@ span.heart {
   font-size: 20px;
 }
 
-div.audio-section {
+div.side-panel {
   flex: 1 0 320px;
   margin-left: 25px;
+  display: flex;
+  flex-direction: column;
 }
+
+button.predict-button {
+  width: 100px;
+}
+
+/*img.preloaded-music:hover {
+  cursor: pointer;
+}*/
 
 .audio-item {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   border: 1px solid black;
+}
+
+audio.audio-player {
+  width: 100%;
 }
 
 svg.svg-canvas {

@@ -29,6 +29,10 @@ app.get('/test', (req, res) => {
   res.send('hi');
 });
 
+app.get('/demoMusic/:movieId', (req, res) => {
+  res.send(req.params.movieId);
+});
+
 app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'name': 'meow'}, {'name': 'woof'}]), (req, res) => {
   // console.log('req.files.files', req.files.files); // array of file objects, want buffer
   const files = req.files.files;

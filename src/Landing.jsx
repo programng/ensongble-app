@@ -1,10 +1,16 @@
 import React from 'react';
 import axios from 'axios';
+import debounce from 'lodash/debounce';
 // import { Link } from 'react-router-dom';
 // import * as d3 from 'd3';
 import AudioItem from './AudioItem';
 import PredictionVis from './PredictionVis';
 
+const genreColors = {
+  'family': 'blue',
+  'horror': 'red',
+  'sci-fi': 'green',
+};
 
 class Landing extends React.Component {
   constructor(props) {
@@ -12,29 +18,53 @@ class Landing extends React.Component {
     this.state = {
       files: [],
       genres: [],
+      predictDisabled: false,
+      uploadDisabled: false,
     };
     this.handleFiles = this.handleFiles.bind(this);
+    this.handleClickPredict = debounce(this.handleClickPredict.bind(this), 1000, {leading: true});
+    this.handleClickPreloaded = debounce(this.handleClickPreloaded.bind(this), 2000, {leading: true});
   }
 
-  handleFiles(e) {
-    this.setState({
-      files: e.target.files,
-    });
-    const files = e.target.files;
-    console.log('files:', files);
+  handleClickPredict(e) {
     const data = new FormData();
-    for (let i = 0; i < files.length; i += 1) {
-      data.append('files', files[i]);
+    for (let i = 0; i < this.state.files.length; i += 1) {
+      data.append('files', this.state.files[i]);
     }
+    this.setState({ predictDisabled: true });
     axios.post('/prediction', data)
     .then((response) => {
       console.log('response', response);
       this.setState({
         genres: response.data,
+        predictDisabled: false,
       });
     })
     .catch((error) => {
       console.log('error', error);
+      this.setState({ predictDisabled: false });
+    });
+  }
+
+  handleClickPreloaded(movieId) {
+    axios.get(`/demoMusic/${movieId}`)
+    .then((response) => {
+      console.log('response.data', response.data);
+      // this.setState({
+      //   genres: response.data,
+      // });
+    })
+    .catch((error) => {
+      console.log('error', error);
+    });
+
+  }
+
+  handleFiles(e) {
+    const files = e.target.files;
+    this.setState({
+      files,
+      uploadDisabled: true,
     });
   }
 
@@ -48,15 +78,21 @@ class Landing extends React.Component {
             made with <span className="heart">&#9829;</span> by Jonathan Ng
           </h2>
         </div> */}
-        <div className="audio-section">
-          <input onChange={this.handleFiles} type="file" id="input" multiple />
-          {Array.prototype.map.call(this.state.files,
-            (file, i) => <AudioItem
-              key={file.name}
-              name={file.name}
-              predictedGenre={this.state.genres[i]}
-              src={URL.createObjectURL(file)}
-            />)}
+        <div className="side-panel">
+          <input onChange={this.handleFiles} type="file" id="input" disabled={this.state.uploadDisabled} multiple />
+          <button className="predict-button" onClick={this.handleClickPredict} disabled={this.state.predictDisabled}>
+            PREDICT
+          </button>
+          <div className="audio-section">
+            {Array.prototype.map.call(this.state.files,
+              (file, i) => <AudioItem
+                key={file.name}
+                name={file.name}
+                predictedGenre={this.state.genres[i]}
+                src={URL.createObjectURL(file)}
+                color={genreColors[this.state.genres[i]]}
+              />)}
+          </div>
         </div>
         <PredictionVis
           fileList={this.state.files}

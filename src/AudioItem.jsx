@@ -4,15 +4,9 @@ import AudioPlayer from './AudioPlayer';
 
 const { string } = React.PropTypes;
 
-const colors = {
-  'family': 'blue',
-  'horror': 'red',
-  'sci-fi': 'green',
-};
-
 function AudioItem(props) {
   const style = {
-    backgroundColor: colors[props.predictedGenre],
+    backgroundColor: props.color,
   };
   return (
     <div className="audio-item" style={style}>

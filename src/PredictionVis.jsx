@@ -9,18 +9,9 @@ class PredictionVis extends React.Component {
   }
 
   componentDidMount() {
-    console.log('this.props', this.props);
-    console.log('this.d3Svg', this.d3Svg);
-
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('this.props', this.props);
-    console.log('nextProps', nextProps);
-    console.log('this.state', this.state);
-    console.log('nextState', nextState);
-    // const fileList = nextProps.files;
-    // const predictedGenres = nextProps.predictedGenres;
     const { fileList, predictedGenres } = nextProps;
 
     const chartWidth = document.querySelector(".svg-canvas").clientWidth;
@@ -28,14 +19,13 @@ class PredictionVis extends React.Component {
     const midWidth = chartWidth / 2;
     const midHeight = chartHeight / 2;
 
-    console.log(fileList);
-    console.log(predictedGenres);
     const fileSizeExtent = d3.extent(fileList, file => file['size']);
-    console.log(fileSizeExtent);
 
+    const minRadius = 20;
+    const maxRadius = 20;
     const radiusScale = d3.scaleLinear()
       .domain(fileSizeExtent)
-      .range([20, 30]);
+      .range([minRadius, maxRadius]);
 
     const shuffleArray = (array) => {
       for (let i = array.length - 1; i > 0; i--) {
@@ -61,16 +51,14 @@ class PredictionVis extends React.Component {
         focusY: focusYLocations.pop(),
       };
     }
-    console.log('focusPoints', focusPoints);
 
     if (this.props.fileList !== nextProps.fileList) {
-      console.log('CREATING NEW NODES');
       this.nodesData = Array.prototype.map.call(fileList, (file, i) => {
         return {
           label: "l"+i ,
           r: radiusScale(file['size']),
-          x: ~~d3.randomUniform(0, chartWidth)(),
-          y: ~~d3.randomUniform(0, chartHeight)(),
+          x: ~~d3.randomUniform(0 + maxRadius, chartWidth - maxRadius)(),
+          y: ~~d3.randomUniform(0 + maxRadius, chartHeight - maxRadius)(),
           focusX: predictedGenres.length > 0 ? focusPoints[predictedGenres[i]]['focusX'] : 0,
           focusY: predictedGenres.length > 0 ? focusPoints[predictedGenres[i]]['focusY'] : 0,
         };
@@ -82,25 +70,11 @@ class PredictionVis extends React.Component {
         .enter().append("circle")
     };
 
-
-    console.log('this.nodesData', this.nodesData);
-
-    // focusX: focusPoints[predictedGenres[i]]['focusX'],
-    // focusY: focusPoints[predictedGenres[i]]['focusY'],
-
-    // this.node = this.d3Svg.append("g")
-    //   .attr("class", "nodes")
-    //   .selectAll("circle")
-    //   .data(this.nodesData, d => d['label'])
-    //   .enter().append("circle")
-
     this.node.attr("r", function(d){  return d.r })
       .attr("cx", function(d){  return d.x })
       .attr("cy", function(d){  return d.y })
-    console.log('THIS.NODE', this.node);
 
     const ticked = () => {
-      console.log(this.node);
       this.node
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
