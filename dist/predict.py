@@ -38,6 +38,8 @@ def get_features(all_songs_for_movie, movie_name='unknown'):
 
     partial_mfcc = partial(librosa.feature.mfcc, n_mfcc=5)
     mfccs = pool.imap(partial_mfcc, X)
+    pool.close()
+    pool.join()
     mfccs = list(mfccs)
 
     mfcc1s = [mfcc[0] for mfcc in mfccs]
@@ -66,6 +68,8 @@ def get_features(all_songs_for_movie, movie_name='unknown'):
 
     movies = df.pop('movie').values
     X = df.values
+
+
 
     return X
 
