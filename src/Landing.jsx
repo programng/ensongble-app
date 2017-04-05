@@ -12,6 +12,8 @@ const genreColors = {
   'sci-fi': 'green',
 };
 
+const serviceUrl = "";
+
 class Landing extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +34,7 @@ class Landing extends React.Component {
       data.append('files', this.state.files[i]);
     }
     this.setState({ predictDisabled: true });
-    axios.post('/prediction', data)
+    axios.post(`${serviceUrl}/prediction`, data)
     .then((response) => {
       console.log('response', response);
       this.setState({
@@ -47,7 +49,7 @@ class Landing extends React.Component {
   }
 
   handleClickPreloaded(movieId) {
-    axios.get(`/demoMusic/${movieId}`)
+    axios.get(`${serviceUrl}/demoMusic/${movieId}`)
     .then((response) => {
       console.log('response.data', response.data);
       // this.setState({

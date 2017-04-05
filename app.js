@@ -24,6 +24,11 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use(bodyParser.raw());
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('/test', (req, res) => {
   res.send('hi');
