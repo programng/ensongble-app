@@ -38,12 +38,14 @@ app.get('/demoMusic/:movieId', (req, res) => {
 });
 
 app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'name': 'meow'}, {'name': 'woof'}]), (req, res) => {
-  // console.log('req.files.files', req.files.files); // array of file objects, want buffer
+  console.log('hit /prediction endpoint');
   const files = req.files.files;
   let file_names = [];
   for (let i = 0; i < files.length; i += 1) {
+    const file_extension = files[i].mimetype.split('/')[1];
     const buffer = files[i].buffer;
-    const tmpobj = tmp.fileSync({postfix: '.wav'});
+    const tmpobj = tmp.fileSync({postfix: `.${file_extension}`});
+    // const tmpobj = tmp.fileSync({postfix: '.wav'});
     fs.writeFileSync(tmpobj.name, buffer);
     file_names.push(tmpobj.name);
     console.log(`${i}: ${tmpobj.name}`);
@@ -71,7 +73,9 @@ app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'n
   });
   // data = [tmpobj.name];
   // py.stdin.write(JSON.stringify(data));
+  console.log('about to stdin.write');
   py.stdin.write(JSON.stringify(file_names));
+  console.log('about to stdin.end');
   py.stdin.end();
 
 });
