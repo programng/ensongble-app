@@ -11,7 +11,9 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server",
-    "lint": "eslint src/**/*.jsx"
+    "lint": "eslint src/**/*.jsx",
+    "restart": "pm2 startOrRestart ecosystem.config.js",
+    "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "repository": {
     "type": "git",
@@ -44,6 +46,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
+    "pm2": "^2.4.3",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
