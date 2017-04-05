@@ -5,10 +5,12 @@ const multer = require('multer');
 const fs = require('fs');
 const tmp = require('tmp');
 const spawn = require('child_process').spawn;
+const cors = require('cors')
 
 const app = express();
 const port = process.env.PORT || 8080;;
 const upload = multer();
+
 
 function escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -24,11 +26,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use(bodyParser.raw());
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+app.use(cors());
 
 app.get('/test', (req, res) => {
   res.send('hi');
