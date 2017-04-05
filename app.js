@@ -55,7 +55,7 @@ app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'n
   // console.log('tmpobj name:', tmpobj.name);
   // fs.writeFileSync(tmpobj.name, buffer);
 
-  const py = spawn('python', [path.join(__dirname, 'dist', 'predict.py')]);
+  const py = spawn('/home/ubuntu/anaconda2/bin/python', [path.join(__dirname, 'dist', 'predict.py')]);
   let result;
 
   py.stdout.on('data', (data) => {
