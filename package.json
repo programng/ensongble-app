@@ -24,6 +24,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
     "d3": "^4.7.4",
     "express": "^4.15.0",
     "lodash": "^4.17.4",
