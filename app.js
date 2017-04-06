@@ -4,13 +4,24 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
 const tmp = require('tmp');
-const spawn = require('child_process').spawn;
+// const childProcess = require('child_process');
 const cors = require('cors')
 
 const app = express();
 const port = process.env.PORT || 8080;;
 const upload = multer();
-
+let childProcess;
+(function() {
+    childProcess = require("child_process");
+    var oldSpawn = childProcess.spawn;
+    function mySpawn() {
+        console.log('spawn called');
+        console.log(arguments);
+        var result = oldSpawn.apply(this, arguments);
+        return result;
+    }
+    childProcess.spawn = mySpawn;
+})();
 
 function escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -50,14 +61,9 @@ app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'n
     file_names.push(tmpobj.name);
     console.log(`${i}: ${tmpobj.name}`);
   }
-  // console.log('req file', req.files.files[0]);
-  // console.log('req buffer', req.files.files[0].buffer);
-  // const buffer = req.files.files[0].buffer;
-  // const tmpobj = tmp.fileSync({postfix: '.wav'});
-  // console.log('tmpobj name:', tmpobj.name);
-  // fs.writeFileSync(tmpobj.name, buffer);
+  console.log('file_names', file_names);
 
-  const py = spawn('/home/ubuntu/anaconda2/bin/python', [path.join(__dirname, 'dist', 'predict.py')]);
+  const py = childProcess.spawn('python', [path.join(__dirname, 'dist', 'predict.py')]);
   let result;
 
   py.stdout.on('data', (data) => {
@@ -66,13 +72,18 @@ app.post('/prediction', upload.fields([{'name': 'files'}, {'name': 'meoww'}, {'n
     console.log(data.toString());
     result = replaceAll(data.toString(), "'", '"');
     console.log('node file result', result);
+    res.send(result)
   });
   py.stdout.on('end', () => {
-    console.log('end python script');
-    res.send(result)
+    // console.log('end python script');
   });
   // data = [tmpobj.name];
   // py.stdin.write(JSON.stringify(data));
+  py.stderr.on('data', (data) => {
+    // As said before, convert the Uint8Array to a readable string.
+    console.log('error', data);
+    console.log('error to string', data.toString());
+  });
   console.log('about to stdin.write');
   py.stdin.write(JSON.stringify(file_names));
   console.log('about to stdin.end');
