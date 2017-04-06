@@ -12,7 +12,7 @@ const genreColors = {
   'sci-fi': 'green',
 };
 
-const serviceUrl = "";
+const serviceUrl = "http://api.ensongble.com";
 
 class Landing extends React.Component {
   constructor(props) {
