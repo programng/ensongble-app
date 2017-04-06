@@ -12,12 +12,9 @@ import librosa
 pool = Pool()
 
 def get_features(all_songs_for_movie, movie_name='unknown'):
-    print 'third'
     all_movie_names = [movie_name] * len(all_songs_for_movie)
-    print 'fourth'
 
     loaded_audio_for_movie = pool.map(librosa.load, all_songs_for_movie)
-    print 'fifth'
     audio_buffer_array = np.array([loaded_audio[0] for loaded_audio in loaded_audio_for_movie])
     X = audio_buffer_array
     df = pd.DataFrame(data={'movie': all_movie_names})
@@ -80,13 +77,9 @@ def read_in():
 
 def main():
     lines = read_in()
-    print 'first', sys.executable
-    print 'first'
     all_songs_for_movie = lines
-    print 'second'
 
     X = get_features(all_songs_for_movie)
-    print 'last'
 
     final_model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'final_model.pkl')
     clf = joblib.load(final_model_path)
