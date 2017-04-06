@@ -12,9 +12,9 @@ function AudioItem(props) {
     <div className="audio-item" style={style}>
       <p>{props.name}</p>
       <AudioPlayer src={props.src} />
-      <div>
+      {/* <div>
         {props.predictedGenre}
-      </div>
+      </div> */}
     </div>
   );
 }

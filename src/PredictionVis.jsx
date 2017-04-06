@@ -2,6 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 
 const genres = ['family', 'horror'];
+const colors =  ['#39CCCC', '#01FF70'];
 
 class PredictionVis extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class PredictionVis extends React.Component {
     const fileSizeExtent = d3.extent(fileList, file => file['size']);
 
     const minRadius = 20;
-    const maxRadius = 20;
+    const maxRadius = 30;
     const radiusScale = d3.scaleLinear()
       .domain(fileSizeExtent)
       .range([minRadius, maxRadius]);
@@ -61,6 +62,7 @@ class PredictionVis extends React.Component {
           y: ~~d3.randomUniform(0 + maxRadius, chartHeight - maxRadius)(),
           focusX: predictedGenres.length > 0 ? focusPoints[predictedGenres[i]]['focusX'] : 0,
           focusY: predictedGenres.length > 0 ? focusPoints[predictedGenres[i]]['focusY'] : 0,
+          color: colors[Math.floor(Math.random()*colors.length)],
         };
       });
       this.node = this.d3Svg.append("g")
@@ -70,9 +72,11 @@ class PredictionVis extends React.Component {
         .enter().append("circle")
     };
 
-    this.node.attr("r", function(d){  return d.r })
+    this.node
+      .attr("r", function(d){  return d.r })
       .attr("cx", function(d){  return d.x })
       .attr("cy", function(d){  return d.y })
+      .attr("fill", function(d){  return d.color })
 
     const ticked = () => {
       this.node
@@ -97,8 +101,12 @@ class PredictionVis extends React.Component {
 
     if (this.props.predictedGenres !== nextProps.predictedGenres && nextProps.predictedGenres.length > 0) {
       for (let i = 0; i < this.nodesData.length; i++) {
-        this.nodesData[i]['focusX'] = focusPoints[predictedGenres[i]]['focusX'] ;
-        this.nodesData[i]['focusY'] = focusPoints[predictedGenres[i]]['focusY'] ;
+        this.nodesData[i]['focusX'] = focusPoints[predictedGenres[i]]['focusX'];
+        this.nodesData[i]['focusY'] = focusPoints[predictedGenres[i]]['focusY'];
+        this.nodesData[i]['color'] = nextProps.nodeColors[i];
+        this.node
+          .attr("fill", function(d){ return d.color })
+
       };
       startSimulation();
     };

@@ -18,16 +18,22 @@ function Header() {
       <ul className="header-nav-list">
         <Link to="/"><li className="header-nav-list-item">Predict Genre</li></Link>
         <Link to="/about"><li className="header-nav-list-item">About</li></Link>
-        <a href="https://www.github.com/programng/movie-tunes-project" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.github.com/programng/ensongble-project" target="_blank" rel="noopener noreferrer">
           <li className="header-nav-list-item github-link">
           <img src="GitHub-Mark-32px.png" className="github-logo" alt="Github" height="20" width="20" />
-            Project Source
+            Model
           </li>
         </a>
-        <a href="https://www.github.com/programng/movie-tunes-app" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.github.com/programng/ensongble-app" target="_blank" rel="noopener noreferrer">
           <li className="header-nav-list-item github-link">
             <img src="GitHub-Mark-32px.png" className="github-logo" alt="Github" height="20" width="20" />
-            App Source
+            Web App
+          </li>
+        </a>
+        <a href="https://www.github.com/programng/ensongble-app" target="_blank" rel="noopener noreferrer">
+          <li className="header-nav-list-item github-link">
+            <img src="GitHub-Mark-32px.png" className="github-logo" alt="Github" height="20" width="20" />
+            API
           </li>
         </a>
         <a href="http://www.programng.com" target="_blank" rel="noopener noreferrer"><li className="header-nav-list-item">programng</li></a>

@@ -158,24 +158,37 @@ div.side-panel {
   margin-left: 25px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 }
 
 button.predict-button {
-  width: 100px;
+  width: 82px;
+  margin:10px 0;
 }
 
 /*img.preloaded-music:hover {
   cursor: pointer;
 }*/
 
+div.audio-section {
+  border: 2px solid #AAAAAA;
+  border-radius: 10px;
+  margin-top: 10px;
+  height: 80%;
+  overflow: scroll;
+}
+
 .audio-item {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  border: 1px solid black;
+  border-bottom: 1px solid #AAAAAA;
+  padding: 10px 15px;
+  /*margin-top: 2px;*/
 }
 
 audio.audio-player {
+  margin-top: 3px;
   width: 100%;
 }
 

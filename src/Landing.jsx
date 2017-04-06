@@ -7,9 +7,9 @@ import AudioItem from './AudioItem';
 import PredictionVis from './PredictionVis';
 
 const genreColors = {
-  'family': 'blue',
-  'horror': 'red',
-  'sci-fi': 'green',
+  'family': '#39CCCC',
+  'horror': '#01FF70',
+  'sci-fi': '#001f3f',
 };
 
 const serviceUrl = "http://api.ensongble.com";
@@ -20,7 +20,8 @@ class Landing extends React.Component {
     this.state = {
       files: [],
       genres: [],
-      predictDisabled: false,
+      nodeColors: [],
+      predictDisabled: true,
       uploadDisabled: false,
     };
     this.handleFiles = this.handleFiles.bind(this);
@@ -39,12 +40,13 @@ class Landing extends React.Component {
       console.log('response', response);
       this.setState({
         genres: response.data,
-        predictDisabled: false,
+        // predictDisabled: false,
+        nodeColors: response.data.map((genre) => genreColors[genre]),
       });
     })
     .catch((error) => {
       console.log('error', error);
-      this.setState({ predictDisabled: false });
+      // this.setState({ predictDisabled: false });
     });
   }
 
@@ -64,10 +66,13 @@ class Landing extends React.Component {
 
   handleFiles(e) {
     const files = e.target.files;
-    this.setState({
-      files,
-      uploadDisabled: true,
-    });
+    if (files.length > 0) {
+      this.setState({
+        files,
+        uploadDisabled: true,
+        predictDisabled: false,
+      });
+    }
   }
 
   render() {
@@ -99,6 +104,7 @@ class Landing extends React.Component {
         <PredictionVis
           fileList={this.state.files}
           predictedGenres={this.state.genres}
+          nodeColors={this.state.nodeColors}
         />
       </div>
     );
