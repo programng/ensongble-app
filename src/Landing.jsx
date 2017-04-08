@@ -6,6 +6,8 @@ import debounce from 'lodash/debounce';
 import AudioItem from './AudioItem';
 import PredictionVis from './PredictionVis';
 
+const genres = ['family', 'horror'];
+
 const genreColors = {
   'family': '#39CCCC',
   'horror': '#01FF70',
@@ -26,7 +28,7 @@ class Landing extends React.Component {
     };
     this.handleFiles = this.handleFiles.bind(this);
     this.handleClickPredict = debounce(this.handleClickPredict.bind(this), 1000, {leading: true});
-    this.handleClickPreloaded = debounce(this.handleClickPreloaded.bind(this), 2000, {leading: true});
+    this.handleClickDemoPredict = debounce(this.handleClickDemoPredict.bind(this), 2000, {leading: true});
   }
 
   handleClickPredict(e) {
@@ -50,18 +52,19 @@ class Landing extends React.Component {
     });
   }
 
-  handleClickPreloaded(movieId) {
-    axios.get(`${serviceUrl}/demoMusic/${movieId}`)
-    .then((response) => {
-      console.log('response.data', response.data);
-      // this.setState({
-      //   genres: response.data,
-      // });
-    })
-    .catch((error) => {
-      console.log('error', error);
-    });
-
+  handleClickDemoPredict(movieId) {
+    this.setState({ predictDisabled: true });
+    setTimeout(() => {
+      let demoGenres = [];
+      for (let i = 0; i < this.state.files.length; i++) {
+        let index = Math.random() > .3 ? 0 : 1;
+        demoGenres.push(genres[index]);
+      }
+      this.setState({
+        genres: demoGenres,
+        nodeColors: demoGenres.map((genre) => genreColors[genre]),
+      });
+    }, 2000);
   }
 
   handleFiles(e) {
@@ -89,6 +92,9 @@ class Landing extends React.Component {
           <input onChange={this.handleFiles} type="file" id="input" disabled={this.state.uploadDisabled} multiple />
           <button className="predict-button" onClick={this.handleClickPredict} disabled={this.state.predictDisabled}>
             PREDICT
+          </button>
+          <button className="predict-button" onClick={this.handleClickDemoPredict} disabled={this.state.predictDisabled}>
+            DEMO PREDICT
           </button>
           <div className="audio-section">
             {Array.prototype.map.call(this.state.files,
